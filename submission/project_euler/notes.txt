@@ -1,0 +1,5 @@
+127 radical
+231 sum of prime divisors for large ncr
+345 bitmask dp
+164 dp. 20 length where no subarray sum greater than 9
+114 1d dp
