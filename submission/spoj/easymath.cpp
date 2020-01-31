@@ -1,0 +1,80 @@
+#include<bits/stdc++.h>
+unsigned long long gcd(unsigned long long a,unsigned long long b)
+{
+    if(a%b) return gcd(b,a%b);
+    return b;
+}
+int main()
+{
+    int T;
+    scanf("%d",&T);
+    while(T--)
+    {
+        unsigned long long n,m,a,d,b[5],c[10],i,j,k,l,co=0,z,temp1,temp2;
+        scanf("%llu%llu%llu%llu",&n,&m,&a,&d);
+        n--;
+        b[0]=a;
+        co+=m/b[0];
+        co-=n/b[0];
+        for(i=1;i<5;i++)
+        {
+            b[i]=b[i-1]+d;
+            co+=m/b[i];
+            co-=n/b[i];
+        }
+        z=0;
+        for(i=0;i<4;i++)
+        {
+            for(j=i+1;j<5;j++)
+            {
+                c[z]=b[i]*b[j]/gcd(b[i],b[j]);
+                co-=m/c[z];
+                co+=n/c[z];
+                z++;
+            }
+        }
+        z=0;
+        for(i=0;i<3;i++)
+        {
+            for(j=i+1;j<4;j++)
+            {
+                temp1=b[i]*b[j]/gcd(b[i],b[j]);
+                for(k=j+1;k<5;k++)
+                {
+                    c[z]=temp1*b[k]/gcd(temp1,b[k]);
+                    co+=m/c[z];
+                    co-=n/c[z];
+                    z++;
+                }
+            }
+        }
+        z=0;
+        for(i=0;i<2;i++)
+        {
+            for(j=i+1;j<3;j++)
+            {
+                temp1=b[i]*b[j]/gcd(b[i],b[j]);
+                for(k=j+1;k<4;k++)
+                {
+                    temp2=temp1*b[k]/gcd(temp1,b[k]);
+                    for(l=k+1;l<5;l++)
+                    {
+                        c[z]=temp2*b[l]/gcd(temp2,b[l]);
+                        co-=m/c[z];
+                        co+=n/c[z];
+                        z++;
+                    }
+                }
+            }
+        }
+        temp1=b[0]*b[1]/gcd(b[0],b[1]);
+        temp1=temp1*b[2]/gcd(temp1,b[2]);
+        temp1=temp1*b[3]/gcd(temp1,b[3]);
+        temp1=temp1*b[4]/gcd(temp1,b[4]);
+        co+=m/temp1;
+        co-=n/temp1;
+        n++;
+        printf("%llu\n",m-n+1-co);
+    }
+    return 0;
+}
