@@ -8,8 +8,6 @@ class Solution
 public:
 	int maxSubArray(vector<int>& nums)
 	{
-        // O(N) time | O(1) space
-        // O(NLOGN) time | O(1) space
 		int ans=INT_MIN,sum=0;
 		for(auto i:nums)
 		{
