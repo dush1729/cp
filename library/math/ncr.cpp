@@ -5,13 +5,16 @@ const int N=1e5+20,MOD=(int)(1e9)+7;
 
 int f[N],ie[N],i;
 
+int mul(int a,int b) {return (1ll*a*b)%MOD;}
+
 int power(int a,int b)
 {
 	int num=a,ans=1;
-	for(int i=0;i<31;i++)
+	while(b)
 	{
-		if(b&(1<<i)) ans=(1ll*ans*num)%MOD;
-		num=(1ll*num*num)%MOD;
+		if(b&1) ans=mul(ans,num);
+		b>>=1;
+		num=mul(num,num);
 	}
 	return ans;
 }
@@ -23,13 +26,13 @@ int inverse_euler(int n)
 
 int ncr(int n,int r)
 {
-	return (1LL*f[n]*((1LL*ie[r]*ie[n-r])%MOD))%MOD;
+	return mul(f[n],mul(ie[r],ir[n-r]));
 }
 
 void precompute()
 {
 	f[0]=1;
-	for(int i=1;i<N;i++) f[i]=(1LL*f[i-1]*i)%MOD;
+	for(int i=1;i<N;i++) f[i]=mul(f[i-1],i);
 	for(int i=0;i<N;i++) ie[i]=inverse_euler(f[i]);
 }
 
