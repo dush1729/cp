@@ -3,3 +3,4 @@
 345 bitmask dp
 164 dp. 20 length where no subarray sum greater than 9
 114 1d dp
+078 coins dp partition
