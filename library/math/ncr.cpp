@@ -1,9 +1,9 @@
 #include "bits/stdc++.h"
 using namespace std;
 
-const int N=1e5+20,MOD=(int)(1e9)+7;
+const int N=1e5+20,MOD=1e9+7;
 
-int f[N],ie[N],i;
+int f[N],ie[N];
 
 int mul(int a,int b) {return (1ll*a*b)%MOD;}
 
@@ -26,7 +26,7 @@ int inverse_euler(int n)
 
 int ncr(int n,int r)
 {
-	return mul(f[n],mul(ie[r],ir[n-r]));
+	return mul(f[n],mul(ie[r],ie[n-r]));
 }
 
 void precompute()
