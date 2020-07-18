@@ -1,9 +1,9 @@
 #include "bits/stdc++.h"
 using namespace std;
 
-const int N=1e3+20;
+const int N=2e5+20,L=log2(N)+20;
 
-int tc,n,m,x,q,u,v,lev[N],par[N],lca[N][(int)log2(N)+10];
+int n,m,u,v,lev[N],par[N],lca[N][L],dp[N],ans[N];
 vector <int> adj[N];
 
 void dfs(int node,int parent,int depth)
@@ -16,11 +16,12 @@ void dfs(int node,int parent,int depth)
 
 void preprocess()
 {
+	dfs(1,0,1);
 	for(int i=1;i<=n;i++)
 		for(int j=0;1<<j<=n;j++)
 			lca[i][j]=-1;
-	for(int i=1;i<=n;i++) lca[i][0]=par[i];
-	for(int j=1;1<<j<=n;j++)
+	for(int i=2;i<=n;i++) lca[i][0]=par[i];
+	for(int j=1;1<<j<n;j++)
 		for(int i=1;i<=n;i++)
 			if(lca[i][j-1]!=-1) lca[i][j]=lca[lca[i][j-1]][j-1];
 }
@@ -38,34 +39,36 @@ int query(int u,int v)
 	return par[u];
 }
 
+int dfs(int node,int parent)
+{
+	for(auto child:adj[node])
+		if(child!=parent) dp[node]+=dfs(child,node);
+	return dp[node];
+}
+
 int main()
 {
-	scanf("%d",&tc);
-	for(int t=1;t<=tc;t++)
+	//https://cses.fi/problemset/task/1136
+	scanf("%d%d",&n,&m);
+	for(int i=0;i<n-1;i++)
 	{
-		scanf("%d",&n);
-		for(int i=1;i<=n;i++)
-		{
-			scanf("%d",&m);
-			for(int j=0;j<m;j++)
-			{
-				scanf("%d",&x);
-				adj[x].push_back(i);
-				adj[i].push_back(x);
-			}
-		}
-
-		dfs(1,0,1);
-		preprocess();
-
-		scanf("%d",&q);
-		printf("Case %d:\n",t);
-		while(q--)
-		{
-			scanf("%d%d",&u,&v);
-			printf("%d\n",query(u,v));
-		}
-
-		for(int i=1;i<=n;i++) adj[i].clear();
+		scanf("%d%d",&u,&v);
+		adj[u].push_back(v);
+		adj[v].push_back(u);
 	}
+
+	preprocess();
+
+	while(m--)
+	{
+		scanf("%d%d",&u,&v);
+		int lca=query(u,v);
+		dp[u]++;
+		dp[v]++;
+		dp[lca]-=2;
+		ans[lca]++;
+	}
+
+	dfs(1,0);
+	for(int i=1;i<=n;i++) printf("%d ",dp[i]+ans[i]);
 }
