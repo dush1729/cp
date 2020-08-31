@@ -2,30 +2,20 @@
 using namespace std;
 
 const int N=1e5+20;
-int n,m,u,v,c,arr[N],sz[N];
+int n,m,u,v,c,p[N],sz[N];
 priority_queue <pair<int,pair<int,int>>> pq;
 
-void initialize()
-{
-	for(int i=1;i<=n;i++) arr[i]=i,sz[i]=1;
-}
+void init() {for(int i=1;i<=n;i++) p[i]=i,sz[i]=1;}
 
-int root(int i)
-{
-	return arr[i]==i?i:root(arr[i]);
-}
+int root(int i) {return p[i]==i?i:p[i]=root(p[i]);}
 
-bool cycle(int A,int B)
-{
-	return root(A)==root(B);
-}
+bool cycle(int a,int b) {return root(a)==root(b);}
 
-void join(int A,int B)
+void join(int a,int b)
 {
-	int root_A=root(A);
-	int root_B=root(B);
-	if(sz[root_A]<sz[root_B]) arr[root_A]=arr[root_B],sz[root_B]+=sz[root_A];
-	else arr[root_B]=arr[root_A],sz[root_A]+=sz[root_B];
+	a=root(a),b=root(b);
+	if(sz[a]<sz[b]) swap(a,b);
+	p[b]=p[a],sz[a]+=sz[b];
 }
 
 long long kruskal()
@@ -37,7 +27,7 @@ long long kruskal()
 		int u=pq.top().second.first;
 		int v=pq.top().second.second;
 		pq.pop();
-		
+
 		if(cycle(u,v)) continue;
 		join(u,v);
 		ans+=c;
@@ -51,7 +41,7 @@ int main()
 	//https://www.spoj.com/problems/MST/
 	scanf("%d%d",&n,&m);
 
-	initialize();
+	init();
 	for(int i=0;i<m;i++)
 	{
 		scanf("%d%d%d",&u,&v,&c);
