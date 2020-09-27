@@ -3,7 +3,7 @@ using namespace std;
 
 const int N=1e5+20;
 
-int n,i,a[N],lazy[N<<2];
+int n,a[N],lazy[N<<2];
 
 struct node
 {
@@ -25,6 +25,7 @@ void build(int node,int start,int end)
 		parent.val=left_child.val+right_child.val;
 	}
 }
+
 void point_update(int node,int start,int end,int idx,int val)
 {
 	struct node &parent=tree[node];
