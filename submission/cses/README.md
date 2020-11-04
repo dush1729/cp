@@ -14,3 +14,6 @@
 | Creating Strings I | https://github.com/dush1729/cp/blob/master/submission/cses/introductory_problems/creating_strings_1.cpp |
 | Apple Division | https://github.com/dush1729/cp/blob/master/submission/cses/introductory_problems/apple_division.cpp |
 | Chessboard and Queens | https://github.com/dush1729/cp/blob/master/submission/cses/introductory_problems/chessboard_and_queens.cpp |
+
+# Sorting and Searching
+- [Apartments](https://github.com/dush1729/cp/blob/master/submission/cses/sorting_and_searching/apartments.cpp)
