@@ -21,5 +21,5 @@ int main()
 		}
 		s.push(i);
 	}
-	for(int i=1;i<=n;i++) printf("%d ",dp[i]);
+	for(int i=1;i<=n;i++) cout<<dp[i]<<" ";
 }
