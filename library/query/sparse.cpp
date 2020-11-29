@@ -2,7 +2,7 @@
 #include "bits/stdc++.h"
 using namespace std;
 
-const int N=1e5+20,L=log(N)+5;
+const int N=1e5+20,L=log2(N)+5;
 
 int n,k,a[N];
 
