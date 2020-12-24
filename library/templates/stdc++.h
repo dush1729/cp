@@ -1,9 +1,8 @@
 #define LOCAL
-#define stm clock_t cccc=clock();
-#define ptm cout<<1.*(clock()-cccc)/CLOCKS_PER_SEC<<endl;
 
 #include "algorithm"
 #include "cassert"
+#include "chrono"
 #include "bitset"
 #include "climits"
 #include "cstring"
@@ -21,11 +20,14 @@
 #include "numeric"
 #include "ostream"
 #include "queue"
+#include "random"
 #include "set"
 #include "sstream"
 #include "stack"
 #include "streambuf"
 #include "string"
+#include "unordered_map"
+#include "unordered_set"
 #include "utility"
 #include "valarray"
 #include "vector"
