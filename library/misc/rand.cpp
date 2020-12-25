@@ -20,7 +20,7 @@ int get_rand(int l = 0, int r = INT_MAX) {
 }
 
 long long get_randll(long long l = 0, long long r = LLONG_MAX) {
-	static mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+	static mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 	uniform_int_distribution <long long> distribution(l, r);
 	return distribution(rng);
 }
