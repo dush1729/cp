@@ -1,6 +1,7 @@
 /*
 Problems
 https://binarysearch.com/problems/Number-of-Islands-Online-Version
+https://codeforces.com/contest/1454/problem/E
 */
 
 struct DSU {
@@ -29,6 +30,10 @@ struct DSU {
 
 	bool cycle(int a, int b) {
 		return root(a) == root(b);
+	}
+
+	int set_size(int a) {
+		return data[root(a)].size;
 	}
 
 	bool join(int a, int b) {
