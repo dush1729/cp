@@ -1,43 +1,46 @@
-#include "bits/stdc++.h"
-using namespace std;
+/*
+Problems
+https://codeforces.com/contest/560/problem/E
+*/
 
-const int N=1e5+20,MOD=1e9+7;
+const int MOD = 1e9 + 7;
 
-int f[N],ie[N];
+struct NCR {
 
-int mul(int a,int b) {return (1ll*a*b)%MOD;}
+	vector <int> f, inv;
 
-int power(int a,int b)
-{
-	int num=a,ans=1;
-	while(b)
-	{
-		if(b&1) ans=mul(ans,num);
-		b>>=1;
-		num=mul(num,num);
+	int mul(int a, int b) {
+		return 1ll * a * b % MOD;
 	}
-	return ans;
-}
 
-int inverse_euler(int n)
-{
-	return power(n,MOD-2);
-}
+	NCR(int SZ): f(SZ), inv(SZ) {
+		f[0] = 1;
+		for(int i = 1; i < SZ; i++) {
+			f[i] = mul(f[i - 1], i);
+		}
 
-int ncr(int n,int r)
-{
-	return mul(f[n],mul(ie[r],ie[n-r]));
-}
+		inv[SZ - 1] = inverse(f[SZ - 1]);
+		for(int i = SZ - 2; i >= 0; i--) {
+			inv[i] = mul(inv[i + 1], i + 1);
+		}
+	}
 
-void precompute()
-{
-	f[0]=1;
-	for(int i=1;i<N;i++) f[i]=mul(f[i-1],i);
-	for(int i=0;i<N;i++) ie[i]=inverse_euler(f[i]);
-}
+	int power(int a, int b) {
+		int ans = 1;
+		while(b) {
+			if(b & 1) ans = mul(ans, a);
+			a = mul(a, a);
+			b >>= 1;
+		}
+		return ans;
+	}
 
-int main()
-{
-	//https://codeforces.com/contest/560/problem/E
-	precompute();
-}
+	int inverse(int n) {
+		return power(n, MOD - 2);
+	}
+
+	int c(int n, int r) {
+		if(r < 0 or r > n) return 0;
+		return mul(f[n], mul(inv[r], inv[n - r]));
+	}
+};
