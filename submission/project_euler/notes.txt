@@ -5,3 +5,4 @@
 114 1d dp
 078 coins dp partition
 083 dijkstra on 2d grid
+102 triangle area
