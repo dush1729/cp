@@ -1,7 +1,6 @@
 /*
-
-https://www.interviewbit.com/problems/longest-palindromic-substring/
-
+Problems
+https://www.interviewbit.com/problems/longest-palindromic-substring
 */
 
 #define ll long long
@@ -41,6 +40,7 @@ public:
 		}
 	}
 
+	// pal(2 * l + 2, 2 * r + 2)
 	// a[l, r] is palindrome(1 based indexing)
 	bool pal(int l, int r) {
 		for(int i = 0; i < MODS.size(); i++) {
@@ -87,9 +87,9 @@ public:
 	}
 
 
-	void init(string s) {
-		a = "";
-		for(char c: s) {
+	void init(string &s) {
+		a = "#";
+		for(char &c: s) {
 			a += c;
 			a += "#";
 		}
