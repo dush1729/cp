@@ -2,6 +2,7 @@
 Problems
 https://binarysearch.com/problems/Trie
 https://codeforces.com/contest/665/problem/E
+https://codingcompetitions.withgoogle.com/kickstart/round/000000000019ffc7/00000000001d3ff3
 */
 
 const int BASE = 26, START = 'a';
