@@ -1,8 +1,5 @@
-/*
-Problems
-https://binarysearch.com/problems/Number-of-Islands-Online-Version
-https://codeforces.com/contest/1454/problem/E
-*/
+#include "bits/stdc++.h"
+using namespace std;
 
 struct DSU {
 	int count, maxsize;
@@ -13,7 +10,7 @@ struct DSU {
 
 	vector <node> data;
 
-	DSU(int SZ): count(SZ), maxsize(1), data(SZ + 1) {
+	DSU(int SZ = 0): count(SZ), maxsize(1), data(SZ + 1) {
 		iota(data.begin(), data.end(), 0);
 	}
 
@@ -49,3 +46,18 @@ struct DSU {
 		return true;
 	}
 };
+
+int n, m, u, v;
+
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+
+	cin >> n >> m;
+	auto dsu = DSU(n);
+	while(m--) {
+		cin >> u >> v;
+		dsu.join(u, v);
+		cout << dsu.count << " " << dsu.maxsize << "\n";
+	}
+}
