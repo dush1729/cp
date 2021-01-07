@@ -1,8 +1,3 @@
-/*
-Problems
-https://cses.fi/problemset/task/1681
-https://codeforces.com/contest/919/problem/D
-*/
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -10,7 +5,7 @@ const int N = 1e5 + 20, MOD = 1e9 + 7;
 
 int n, m, u, v, vis[N], dp[N];
 vector <int> adj[N];
-stack <int> s; // stack(root -> left), queue(leaf -> root)
+stack <int> s;
 
 void dfs(int node, int parent) {
 	vis[node] = 1;
