@@ -11,7 +11,7 @@ const int N = 1e5 + 20;
 
 struct node {
 	int val, lazy;
-	node(): val(0), lazy(0) {}
+	node(int x = 0): val(x), lazy(0) {}
 } tree[N << 2];
 
 node merge(node &lch, node &rch) {
@@ -58,7 +58,7 @@ void point_update(int id, int start, int end, int idx, int val) {
 
 		node &lch = tree[lid];
 		node &rch = tree[rid];
-		par.val = lch.val + rch.val;
+		par.val = merge(lch.val, rch.val);
 	}
 }
 
