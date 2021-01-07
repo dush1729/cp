@@ -2,6 +2,7 @@
 Problems
 https://www.hackerearth.com/practice/algorithms/graphs/minimum-spanning-tree/tutorial
 https://www.spoj.com/problems/MST
+https://cses.fi/problemset/task/1675
 */
 
 struct KRUSKAL {
