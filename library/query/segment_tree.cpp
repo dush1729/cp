@@ -46,9 +46,9 @@ void build(int id, int start, int end) {
 void point_update(int id, int start, int end, int idx, int val) {
 	node &par = tree[id];
 	if(start == end) {
-		par.val += val;
-	}
-	else {
+		par = node(val);
+		a[start] = val;
+	} else {
 		int mid = (start + end) >> 1, lid = id << 1, rid = lid + 1;
 		if(start <= idx and idx <= mid) {
 			point_update(lid, start, mid, idx, val);
@@ -58,7 +58,7 @@ void point_update(int id, int start, int end, int idx, int val) {
 
 		node &lch = tree[lid];
 		node &rch = tree[rid];
-		par.val = merge(lch.val, rch.val);
+		par = merge(lch, rch);
 	}
 }
 
