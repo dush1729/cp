@@ -5,3 +5,4 @@ XMEN LIS on indexes
 AIBOHP longest palindromic subsequence
 UJ01 number theory, kth multiple of a and b
 IITKWPCJ lcm on two string
+KQUERY merge sort tree
