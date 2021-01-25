@@ -13,7 +13,7 @@ struct NCR {
 		return 1ll * a * b % MOD;
 	}
 
-	NCR(int SZ): f(SZ), inv(SZ) {
+	NCR(int SZ = 1e6): f(SZ), inv(SZ) {
 		f[0] = 1;
 		for(int i = 1; i < SZ; i++) {
 			f[i] = mul(f[i - 1], i);
@@ -44,3 +44,4 @@ struct NCR {
 		return mul(f[n], mul(inv[r], inv[n - r]));
 	}
 };
+NCR ncr;
