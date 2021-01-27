@@ -13,7 +13,7 @@ struct DSU {
 
 	vector <node> data;
 
-	DSU(int SZ): count(SZ), maxsize(1), data(SZ + 1) {
+	DSU(int SZ = 0): count(SZ), maxsize(1), data(SZ + 1) {
 		iota(data.begin(), data.end(), 0);
 	}
 
