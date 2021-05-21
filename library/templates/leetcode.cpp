@@ -5,13 +5,12 @@ using namespace std;
 
 class Solution {
 public:
-	int maxSumDivThree(vector<int>& a) {
+	void maxSumDivThree() {
 	}
 };
 
-#ifdef LOCAL
+#ifdef DUSH1729
 int main() {
-	vector <int> v = {1, 2};
-	auto ans = Solution().maxSumDivThree(v);
+	Solution().maxSumDivThree();
 }
 #endif
