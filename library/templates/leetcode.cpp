@@ -5,12 +5,12 @@ using namespace std;
 
 class Solution {
 public:
-	void maxSumDivThree() {
+	int maxSumDivThree() {return 0;
 	}
 };
 
 #ifdef DUSH1729
 int main() {
-	Solution().maxSumDivThree();
+	auto ans = Solution().maxSumDivThree();
 }
 #endif
