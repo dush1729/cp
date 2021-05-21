@@ -1,5 +1,3 @@
-#define LOCAL
-
 #include "algorithm"
 #include "cassert"
 #include "chrono"

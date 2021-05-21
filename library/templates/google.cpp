@@ -11,7 +11,7 @@ void run_test(int testcase) {
 
 int main() {
 	ios::sync_with_stdio(0);
-	#ifndef LOCAL
+	#ifndef DUSH1729
 	cin.tie(0);
 	#endif
 	cout << fixed << setprecision(10);
