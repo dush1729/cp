@@ -18,10 +18,7 @@ struct DSU {
 	}
 
 	int root(int i) {
-		if(i != data[i].parent) {
-			data[i].parent = root(data[i].parent);
-		}
-		return data[i].parent;
+		return i == data[i].parent ? data[i].parent : root(data[i].parent);
 	}
 
 	bool is_root(int i) {
