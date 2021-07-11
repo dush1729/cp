@@ -1,0 +1,41 @@
+#include "bits/stdc++.h"
+using namespace std;
+#define ll long long
+const int areTests = 1;
+
+string a = "manku";
+
+void run_test(int testcase) {
+	ll n;
+	cin >> n;
+
+	ll l = 1, p = 5;
+	while(n > p) {
+		n -= p;
+		p *= 5;
+		l++;
+	}
+
+	n--;
+	string ans;
+	for(int i = 0; i < l; i++) {
+		ans += a[n % 5];
+		n /= 5;
+	}
+	reverse(ans.begin(), ans.end());
+	cout << ans << "\n";
+}
+
+int main() {
+	ios::sync_with_stdio(0);
+	#ifndef DUSH1729
+	cin.tie(0);
+	#endif
+	cout << fixed << setprecision(10);
+
+	int t = 1;
+	if(areTests) cin >> t;
+	for(int i = 1; i <= t; i++) {
+		run_test(i);
+	}
+}
