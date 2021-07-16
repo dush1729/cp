@@ -21,18 +21,12 @@ void run_test(int testcase) {
 			if(i + 1 != needle.size()) p = (p * BASE) % MOD;
 		}
 
-		int x = 0;
-		for(int i = 0; i < needle.size(); i++) {
-			x = (x * BASE + haystack[i] - 'a') % MOD;
-		}
-
-		if(x == hash) cout << "1\n";
-		for(int i = needle.size(); i < haystack.size(); i++) {
-			x -= (p * (haystack[i - needle.size()] - 'a')) % MOD;
+		for(int x = 0, i = 0; i < haystack.size(); i++) {
+			if(i >= needle.size()) x -= (p * (haystack[i - needle.size()] - 'a')) % MOD;
 			x %= MOD;
 			if(x < 0) x += MOD;
 			x = (x * BASE + haystack[i] - 'a') % MOD;
-			if(x == hash) cout << i - needle.size() + 1 << "\n";
+			if(i >= needle.size() - 1 && x == hash) cout << i - needle.size() + 1 << "\n";
 		}
 	}
 }
