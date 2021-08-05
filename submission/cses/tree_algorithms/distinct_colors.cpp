@@ -14,7 +14,7 @@ void go(int node, int parent) {
 
 		go(child, node);
 		if(s[node].size() < s[child].size()) swap(s[node], s[child]);
-		for(int &x: s[child]) s[node].insert(x);
+		for(int x: s[child]) s[node].insert(x);
 	}
 	ans[node] = s[node].size();
 }
