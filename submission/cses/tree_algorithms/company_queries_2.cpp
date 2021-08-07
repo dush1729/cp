@@ -1,4 +1,7 @@
-//https://cses.fi/problemset/task/1688/
+#include "bits/stdc++.h"
+using namespace std;
+#define ll long long
+const int areTests = 0;
 
 struct LCA {
 	int n, l;
@@ -28,3 +31,33 @@ struct LCA {
 		return p[u][0];
 	}
 };
+
+void run_test(int testcase) {
+	int n, q, x, u, v;
+	cin >> n >> q;
+	vector <vector <int>> g(n + 1);
+	for(int i = 2; i <= n; i++) {
+		cin >> x;
+		g[x].push_back(i);
+	}
+
+	auto ds = LCA(g, 1);
+	while(q--) {
+		cin >> u >> v;
+		cout << ds.lca(u, v) << "\n";
+	}
+}
+
+int main() {
+	ios::sync_with_stdio(0);
+	#ifndef DUSH1729
+	cin.tie(0);
+	#endif
+	cout << fixed << setprecision(10);
+
+	int t = 1;
+	if(areTests) cin >> t;
+	for(int i = 1; i <= t; i++) {
+		run_test(i);
+	}
+}
