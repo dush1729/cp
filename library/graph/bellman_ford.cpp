@@ -1,19 +1,20 @@
 // https://cses.fi/problemset/task/1197/
 
-const int MAX = 1e9;
+const ll MAX = 1e18;
 
 struct edge {
 	int u, v, c;
 };
 
 struct BELLMAN_FORD {
+	int n;
 	vector <ll> dp;
 	vector <int> p;
 	vector <edge> edges;
 	int negative_cycle = 0;
 	vector <int> cycle;
 
-	BELLMAN_FORD(int n, int source, vector <edge> &v) : edges(v), dp(n + 1, MAX), p(n + 1) {
+	BELLMAN_FORD(int nodes, int source, vector <edge> &v) : n(nodes), dp(n + 1, MAX), p(n + 1), edges(v) {
 		dp[source] = 0;
 		for(int it = 0; it < n - 1; it++) relax();
 
