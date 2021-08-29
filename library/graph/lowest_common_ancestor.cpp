@@ -4,7 +4,7 @@ struct LCA {
 	int n, l;
 	vector <vector <int>> g, p;
 	vector <int> d;
-	LCA(vector <vector <int>> &gr, int root): n(gr.size() - 1), l(log2(n) + 1), g(gr), d(n + 1), p(n + 1, vector (l, -1)) {
+	LCA(vector <vector <int>> &gr, int root): n(gr.size() - 1), l(log2(n) + 1), g(gr), p(n + 1, vector (l, -1)), d(n + 1) {
 		dfs(root, 0, 0);
 		for(int j = 1; j < l; j++)
 			for(int i = 1; i <= n; i++)
