@@ -2,52 +2,38 @@
 https://codeforces.com/contest/872/problem/B
 https://binarysearch.com/problems/Longest-Sublist-with-Absolute-Difference-Condition
 */
-#include "bits/stdc++.h"
-using namespace std;
+const int L = 20, N = 1 << L;
 
-const int N = 1e5 + 20, L = log2(N) + 5;
+int lg[N];
+template <typename T, typename F = std::function<T(const T&, const T&)>> struct SPARSE {
+	vector<T> st[L];
+	F op;
 
-int n, k, a[N];
+	SPARSE(const vector<T> &a, F op): op(op) {
+		int n = a.size();
+		if(!lg[N - 1]) for(int i = 2; i < N; i++) lg[i] = lg[i >> 1] + 1;
+		for(int i = 0; i < L; i++) st[i].resize(n);
+		for(int i = 0; i < n; i++) st[0][i] = a[i];
+		for(int i = 1; i < L; i++)
+			for(int j = 0; j + (1 << i) <= n; j++)
+				st[i][j] = op(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+	}
 
-int st[N][L], lg[N];
+	// O(1) query for idempotent functions like min, gcd, or
+	T query(int i, int j) {
+		int k = lg[j - i + 1];
+		return op(st[k][i], st[k][j - (1 << k) + 1]);
+	}
 
-void build() {
-	for(int i = 2; i < N; i++) lg[i] = lg[i >> 1] + 1;
-	for(int j = 0; j < L; j++) {
-		for(int i = 1; i + (1 << j) <= n + 1; i++) {
-			if(j == 0) st[i][0] = a[i];
-			else st[i][j] = min(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
+	// O(logn) query for associative functions like add, xor
+	T querys(int l, int r) {
+		T s = -1;
+		for(int j = L - 1, flag = 0; j >= 0; j--) {
+			if((1 << j) > r - l + 1) continue;
+			s = (flag ? op(s, st[j][l]) : st[j][l]);
+			l += 1 << j;
+			flag = 1;
 		}
+		return s;
 	}
-}
-
-// O(logn) query for associative functions like add, xor
-int querys(int l, int r) {
-	int s = INT_MAX;
-	for(int j = L - 1; j >= 0; j--) {
-		if((1 << j) > r - l + 1) continue;
-		s = min(s, st[l][j]);
-		l += 1 << j;
-	}
-	return s;
-}
-
-// O(1) query for idempotent functions like min, gcd, or
-int queryf(int l, int r) {
-	int j = lg[r - l + 1];
-	return min(st[l][j], st[r - (1 << j) + 1][j]);
-}
-
-int main() {
-	scanf("%d%d", &n, &k);
-	for(int i = 1; i <= n;i++) scanf("%d", &a[i]);
-	build();
-
-	if(k == 1) printf("%d", *min_element(a + 1, a + n + 1));
-	else if(k > 2) printf("%d", *max_element(a + 1, a + n + 1));
-	else {
-		int ans = INT_MIN;
-		for(int i = 1; i + 1 <= n;i++) ans = max({ans, queryf(1, i), queryf(i + 1, n)});
-		printf("%d", ans);
-	}
-}
+};
