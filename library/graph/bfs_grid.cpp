@@ -11,7 +11,7 @@ struct BFS {
 
 	BFS(const vector <vector <char>> &a, const vector <pair <int, int>> &sources) {
 		int n = a.size(), m = a[0].size();
-		dp.assign(n, vector <int> (m, -1));
+		dp.assign(n, vector (m, -1));
 		auto invalid = [&](int x, int y) {
 			return min(x, y) < 0 || x >= n || y >= m || a[x][y] == 'X' || dp[x][y] != -1;
 		};
