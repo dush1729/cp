@@ -2,9 +2,9 @@ struct BFS {
 	queue <int> q;
 	vector <int> d, p;
 
-	void add(int node, int parent, int dance) {
+	void add(int node, int parent, int dist) {
 		q.push(node);
-		d[node] = dance;
+		d[node] = dist;
 		p[node] = parent;
 	}
 
