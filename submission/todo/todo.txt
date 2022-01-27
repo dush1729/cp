@@ -1,0 +1,38 @@
+Letters Removing
+probably bit?
+https://codeforces.com/contest/899/problem/F
+
+Largest Beautiful Number
+greedy number construction
+https://codeforces.com/contest/946/problem/E
+
+Gold Transfer
+tree
+https://codeforces.com/contest/1535/problem/E
+
+Clear The Matrix
+broken dp, profile dp
+https://codeforces.com/contest/903/problem/F
+
+Palindrome-less Arrays
+https://codeforces.com/contest/1140/problem/E
+
+Trips
+graph
+https://codeforces.com/contest/1037/problem/E
+
+Magic Numbers
+digit dp, resolve
+https://codeforces.com/contest/628/problem/D
+
+Ra-One Numbers
+digit dp
+https://www.spoj.com/problems/RAONE/
+
+DZY Loves Fibonacci Numbers
+segtree?
+https://codeforces.com/contest/446/problem/C
+
+A Simple Task
+bitmask?
+https://codeforces.com/contest/11/problem/D
