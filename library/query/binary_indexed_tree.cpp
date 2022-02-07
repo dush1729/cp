@@ -7,9 +7,7 @@ https://binarysearch.com/problems/Bubble-Swap
 struct BIT {
 	int n;
 	vector <int> tree;
-	BIT(int SZ): tree(SZ + 1) {
-		n = SZ;
-	}
+	BIT(int SZ): tree(SZ + 1), n(SZ) {}
 
 	// a[x] += delta
 	void update(int x, int delta) {
