@@ -9,7 +9,7 @@ int lis(vector <int> a) {
 	return v.size();
 }
 
-int lds(vector <int> &a) {
+int lds(vector <int> a) {
 	reverse(a.begin(), a.end());
 	return lis(a);
 }
