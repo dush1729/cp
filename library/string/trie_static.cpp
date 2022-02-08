@@ -5,34 +5,29 @@ https://codeforces.com/contest/665/problem/E
 https://codingcompetitions.withgoogle.com/kickstart/round/000000000019ffc7/00000000001d3ff3
 */
 
-const int BASE = 26, SZ = 1e6 + 2, START = 'a';
-
-int pos, nxt[SZ][BASE];
-//unordered_map <int, unordered_map <int, int>> nxt;
-struct node {
-	int count;
-	bool end;
-	node(): count(0), end(false) {}
-};
-node nodes[SZ];
+const int BASE = 26, START = 'a';
 
 struct TRIE {
-	TRIE() {
-		for(int i = 1; i <= pos; i++) {
-			nodes[i] = node();
-		}
-		memset(nxt, 0, pos * sizeof(nxt[0]));
-		//nxt.clear();
-		pos = 1;
-	}
+	struct node {
+		int count = 0;
+		bool end = false;
+	};
+
+	int pos = 1;
+	vector <array <int, BASE>> nxt;
+	vector <node> nodes;
 
 	void add(string s) {
 		int u = 0;
 		for(auto &c: s) {
+			if(u >= nodes.size()) nodes.resize(u + 1);
 			nodes[u].count++;
+			if(u >= nxt.size()) nxt.resize(u + 1);
 			if(!nxt[u][c - START]) nxt[u][c - START] = pos++;
 			u = nxt[u][c - START];
-		}		
+		}
+		if(u >= nxt.size()) nxt.resize(u + 1);
+		if(u >= nodes.size()) nodes.resize(u + 1);
 		nodes[u].count++;
 		nodes[u].end = true;
 	}

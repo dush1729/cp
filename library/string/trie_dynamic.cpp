@@ -9,20 +9,18 @@ const int BASE = 26, START = 'a';
 
 struct TRIE {
 	struct node {
-		int count = 1;
+		int count = 0;
 		bool end = false;
-		node* next[BASE] = {};
+		node* nxt[BASE] = {};
 	};
-	struct node* head;
-
-	TRIE(): head(new node()) {};
+	node* head = new node();
 
 	void add(string s) {
 		auto ptr = head;
 		for(char &c: s) {
 			ptr->count++;
-			if(!ptr->next[c - START]) ptr->next[c - START] = new node();
-			ptr = ptr->next[c - START];
+			if(!ptr->nxt[c - START]) ptr->nxt[c - START] = new node();
+			ptr = ptr->nxt[c - START];
 		}
 		ptr->count++;
 		ptr->end = true;
@@ -31,8 +29,8 @@ struct TRIE {
 	bool exists(string s, bool prefix = false) {
 		auto ptr = head;
 		for(char &c: s) {
-			if(!ptr->next[c - START]) return false;
-			ptr = ptr->next[c - START];
+			if(!ptr->nxt[c - START]) return false;
+			ptr = ptr->nxt[c - START];
 		}
 		return prefix or ptr->end;
 	}
