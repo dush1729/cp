@@ -3,43 +3,27 @@ Problems
 https://cses.fi/problemset/task/1681
 https://codeforces.com/contest/919/problem/D
 */
-#include "bits/stdc++.h"
-using namespace std;
 
-const int N = 1e5 + 20, MOD = 1e9 + 7;
+struct TOPOLOGICAL_SORT {
+	// leaf -> root
+	vector <vector <int>> adj;
+	vector <int> vis, order;
 
-int n, m, u, v, vis[N], dp[N];
-vector <int> adj[N];
-stack <int> s; // stack(root -> left), queue(leaf -> root)
-
-void dfs(int node, int parent) {
-	vis[node] = 1;
-	for(int child: adj[node])
-		if(!vis[child]) dfs(child, node);
-	s.push(node);
-}
-
-int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-
-	cin >> n >> m;
-	while(m--) {
-		cin >> u >> v;
-		adj[u].push_back(v);
+	void dfs(int node) {
+		vis[node] = 1;
+		for(int child: adj[node])
+			if(!vis[child]) dfs(child);
+		order.push_back(node);
 	}
 
-	dfs(1, 0);
+	TOPOLOGICAL_SORT(const vector <vector <int>> &g) : adj(g) {
+		int n = g.size();
+		vis.resize(n);
 
-	dp[1] = 1;
-	while(!s.empty()) {
-		int node = s.top();
-		s.pop();
+		for(int i = 0; i < n; i++)
+			if(!vis[i]) dfs(i);
 
-		for(int child: adj[node]) {
-			dp[child] = (dp[child] + dp[node]) % MOD;
-		}
+		// uncomment for root -> leaf
+		//reverse(order.begin(), order.end());
 	}
-
-	cout << dp[n];
-}
+};
