@@ -3,6 +3,7 @@ Problems
 https://binarysearch.com/problems/Trie
 https://codeforces.com/contest/665/problem/E
 https://codingcompetitions.withgoogle.com/kickstart/round/000000000019ffc7/00000000001d3ff3
+https://codeforces.com/contest/706/problem/D
 */
 
 const int BASE = 26, START = 'a';
@@ -17,7 +18,7 @@ struct TRIE {
 	vector <array <int, BASE>> nxt;
 	vector <node> nodes;
 
-	void add(string s) {
+	void add(const string &s) {
 		int u = 0;
 		for(auto &c: s) {
 			if(u >= nodes.size()) nodes.resize(u + 1);
@@ -32,7 +33,7 @@ struct TRIE {
 		nodes[u].end = true;
 	}
 
-	bool exists(string s, bool prefix = false) {
+	bool exists(const string &s, bool prefix = false) {
 		int u = 0;
 		for(auto &c: s) {
 			if(!nxt[u][c - START]) return false;
@@ -41,7 +42,7 @@ struct TRIE {
 		return prefix or nodes[u].end;
 	}
 
-	bool startswith(string s) {
+	bool startswith(const string &s) {
 		return exists(s, true);
 	}
 };
