@@ -8,11 +8,14 @@ struct TOPOLOGICAL_SORT {
 	// leaf -> root
 	vector <vector <int>> adj;
 	vector <int> vis, order;
+	int cycle = 0;
 
 	void dfs(int node) {
 		vis[node] = 1;
 		for(int child: adj[node])
 			if(!vis[child]) dfs(child);
+			else if(vis[child] == 1) cycle = 1;
+		vis[node] = 2;
 		order.push_back(node);
 	}
 
