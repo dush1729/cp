@@ -1,6 +1,6 @@
 #include "bits/stdc++.h"
 using namespace std;
-#define ll long long
+using ll = long long;
 const int areTests = 0;
 
 
