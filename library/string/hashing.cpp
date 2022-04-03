@@ -1,100 +1,55 @@
 /*
 Problems
-https://www.interviewbit.com/problems/longest-palindromic-substring
+https://leetcode.com/problems/longest-palindromic-substring
 */
 
-#define ll long long
+const int BASE = 128;
+const vector <int> MODS = {342876881, 573161801};
+ll lh[2][N], rh[2][N], p[2][N];
 
-class Hashing {
-
-	const int BASE = 256;
-	const vector <int> MODS = {1000000007, 573161801};
-
+struct HASHING {
 	int n;
-	string a;
-	vector <vector <ll>> lh, rh, p;
 
-public:
+	HASHING(const string &a) {
+		n = a.size();
+		for(int i = 0; i < 2; i++) p[i][0] = 1;
 
-	void calculate_hashes() {
-		lh.clear();
-		rh.clear();
-		p.clear();
-
-		for(int mod: MODS) {
-			lh.push_back({0});
-			p.push_back({1});
-			for(int x: a) {
-				ll v = lh.back().back() * BASE + x;
-				lh.back().push_back(v % mod);
-				p.back().push_back(p.back().back() * BASE % mod);
+		for(int i = 0; i < MODS.size(); i++) {
+			for(int j = 0; j < a.size(); j++) {
+				lh[i][j + 1] = (lh[i][j] * BASE + a[j]) % MODS[i];
+				p[i][j + 1] = p[i][j] * BASE % MODS[i];
 			}
-
-			reverse(a.begin(), a.end());
-			rh.push_back({0});
-			for(int x: a) {
-				ll v = rh.back().back() * BASE + x;
-				rh.back().push_back(v % mod);
+			for(int j = a.size() - 1, k = 0; j >= 0; j--, k++) {
+				rh[i][k + 1] = (rh[i][k] * BASE + a[j]) % MODS[i];
 			}
-			reverse(a.begin(), a.end());
 		}
 	}
 
-	// pal(2 * l + 2, 2 * r + 2)
-	// a[l, r] is palindrome(1 based indexing)
-	bool pal(int l, int r) {
+	ll getl(int l, int r, int i) {
+		ll lhash = lh[i][r] - lh[i][l - 1] * p[i][r - l + 1];
+		lhash %= MODS[i];
+		if(lhash < 0) lhash += MODS[i];
+		return lhash;
+	}
+
+	ll getr(int l, int r, int i) {
+		ll rhash = rh[i][n - l + 1] - rh[i][n - r] * p[i][r - l + 1];
+		rhash %= MODS[i];
+		if(rhash < 0) rhash += MODS[i];
+		return rhash;
+	}
+
+	bool equal(int a, int b, int l) {
 		for(int i = 0; i < MODS.size(); i++) {
-			ll lhash = lh[i][r] - lh[i][l - 1] * p[i][r - l + 1];
-			lhash %= MODS[i];
-			if(lhash < 0) lhash += MODS[i];
-
-			ll rhash = rh[i][n - l + 1] - rh[i][n - r] * p[i][r - l + 1];
-			rhash %= MODS[i];
-			if(rhash < 0) rhash += MODS[i];
-
-			if(lhash != rhash) return false;
+			if(getl(a, a + l - 1, i) != getl(b, b + l - 1, i)) return false;
 		}
 		return true;
 	}
 
-	string longest_pal() {
-		int ans = 0, idx = -1;
-		for(int i = 1; i + 1 < n; i++) {
-			int lo = 1, hi = min(i + 1, n - i), len = -1;
-			while(lo <= hi) {
-				int mid = (lo + hi) >> 1;
-				if(pal(i - mid + 1, i + mid - 1)) lo = mid + 1, len = mid;
-				else hi = mid - 1;
-			}
-
-			int start = i - len + 1;
-			if(a[i] == '#') len = (len + 1) / 2;
-			else len = (len - 2) / 2;
-			if(ans < len) {
-				ans = len;
-				idx = start;
-			}
+	bool pal(int l, int r) {
+		for(int i = 0; i < MODS.size(); i++) {
+			if(getl(l, r, i) != getr(l, r, i)) return false;
 		}
-
-		string s;
-		while(s.size() < ans) {
-			if(a[idx] != '#') {
-				s += a[idx];
-				idx++;
-			}
-		}
-		return s;
-	}
-
-
-	void init(string &s) {
-		a = "#";
-		for(char &c: s) {
-			a += c;
-			a += "#";
-		}
-
-		n = a.size();
-		calculate_hashes();
+		return true;
 	}
 };
