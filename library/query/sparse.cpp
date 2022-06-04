@@ -9,7 +9,7 @@ template <typename T, typename F = std::function<T(const T&, const T&)>> struct 
 	vector<T> st[L];
 	F op;
 
-	SPARSE(const vector<T> &a, F op): op(op) {
+	SPARSE(const vector<T> &a, F operation): op(operation) {
 		int n = a.size();
 		if(!lg[N - 1]) for(int i = 2; i < N; i++) lg[i] = lg[i >> 1] + 1;
 		for(int i = 0; i < L; i++) st[i].resize(n);
