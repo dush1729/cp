@@ -4,46 +4,36 @@ https://codeforces.com/contest/560/problem/E
 */
 
 const int MOD = 1e9 + 7;
+struct mi {
+ 	int v; explicit operator int() const { return v; } 
+	mi():v(0) {}
+	mi(ll _v):v(int(_v%MOD)) { v += (v<0)*MOD; }
+};
+mi& operator+=(mi& a, mi b) { 
+	if ((a.v += b.v) >= MOD) a.v -= MOD; 
+	return a; }
+mi& operator-=(mi& a, mi b) { 
+	if ((a.v -= b.v) < 0) a.v += MOD; 
+	return a; }
+mi operator+(mi a, mi b) { return a += b; }
+mi operator-(mi a, mi b) { return a -= b; }
+mi operator*(mi a, mi b) { return mi((ll)a.v*b.v); }
+mi& operator*=(mi& a, mi b) { return a = a*b; }
+mi pow(mi a, ll p) { return p==0?1:pow(a*a,p/2)*(p&1?a:1); }
+mi inv(mi a) { assert(a.v != 0); return pow(a,MOD-2); }
+mi operator/(mi a, mi b) { return a*inv(b); }
+mi operator/=(mi &a, mi b) { return a = a*inv(b); }
+bool operator==(mi a, mi b) { return a.v == b.v; }
 
-int add(int a, int b) {
-	return (0ll + a + b) % MOD;
+const int N = 2e5 + 20;
+mi f[N], finv[N];
+void precompute() {
+	f[0] = 1;
+	for(int i = 1; i < N; i++) f[i] = f[i - 1] * i;
+	finv[N - 1] = 1 / f[N - 1];
+	for(int i = N - 2; i >= 0; i--) finv[i] = finv[i + 1] * (i + 1);
 }
-
-int mul(int a, int b) {
-	return (1ll * a * b) % MOD;
+mi choose(int n, int r) {
+	if(r < 0 or r > n) return 0;
+	return f[n] * finv[r] * finv[n - r];
 }
-
-int power(int a, int b) {
-	int ans = 1;
-	while(b) {
-		if(b & 1) ans = mul(ans, a);
-		a = mul(a, a);
-		b >>= 1;
-	}
-	return ans;
-}
-
-int inverse(int n) {
-	return power(n, MOD - 2);
-}
-
-struct NCR {
-	vector <int> f, invfact;
-
-	NCR(int SZ = 1e6): f(SZ), invfact(SZ) {
-		f[0] = 1;
-		for(int i = 1; i < SZ; i++) {
-			f[i] = mul(f[i - 1], i);
-		}
-
-		invfact[SZ - 1] = inverse(f[SZ - 1]);
-		for(int i = SZ - 2; i >= 0; i--) {
-			invfact[i] = mul(invfact[i + 1], i + 1);
-		}
-	}
-
-	int c(int n, int r) {
-		if(r < 0 or r > n) return 0;
-		return mul(f[n], mul(invfact[r], invfact[n - r]));
-	}
-} ncr;
