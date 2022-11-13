@@ -15,12 +15,11 @@ https://binarysearch.com/problems/Longest-Repeating-Sublist-After-K-Updates
 */
 
 int compress(vector <int> &v) {
-	if(v.empty()) return 0;
-	vector <int> s = v;
+	auto s = v;
 	sort(s.begin(), s.end());
 	s.resize(unique(s.begin(), s.end()) - s.begin());
 
-	int mx = 1;
+	int mx = 0;
 	for(int &x: v) {
 		x = lower_bound(s.begin(), s.end(), x) - s.begin() + 1;
 		mx = max(mx, x);
