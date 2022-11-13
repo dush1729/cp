@@ -3,9 +3,12 @@ Problems
 https://leetcode.com/problems/longest-palindromic-substring
 
 1 based indexing
+
+Get 31 bit prime from
+https://asecuritysite.com/encryption/random3
 */
 
-const int BASE = 128;
+const int BASE = 128, N = 1 << 20;
 const vector <int> MODS = {342876881, 573161801};
 ll n, lh[2][N], rh[2][N], p[2][N];
 
