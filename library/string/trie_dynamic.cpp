@@ -1,5 +1,6 @@
 /*
 Problems
+https://leetcode.com/problems/word-break/description/
 https://binarysearch.com/problems/Trie
 https://codeforces.com/contest/665/problem/E
 https://codingcompetitions.withgoogle.com/kickstart/round/000000000019ffc7/00000000001d3ff3
@@ -14,7 +15,7 @@ struct TRIE {
 		bool end = false;
 		node* nxt[BASE] = {};
 	};
-	node* head = new node();
+	node *head = new node(), *p;
 
 	void add(const string &s) {
 		auto ptr = head;
@@ -50,7 +51,19 @@ struct TRIE {
 		return prefix or ptr->end;
 	}
 
+	bool exists(const char &c, bool init_ptr = false) {
+		if(init_ptr) p = head;
+		if(!p->nxt[c - START]) return false;
+		p = p->nxt[c - START];
+		return true;
+	}
+
 	bool startswith(const string &s) {
 		return exists(s, true);
+	}
+
+	TRIE() {}
+	TRIE(const vector <string> &a) {
+		for(auto &s: a) add(s);
 	}
 };
