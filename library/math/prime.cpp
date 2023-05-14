@@ -2,8 +2,9 @@
 // size of prime can be reduced to primepi(MAX)
 
 const int MAX = 1e6 + 2;
-int lp[MAX], prime[MAX], prime_cnt; 
-void sieve_linear() {
+int lp[MAX], prime[MAX], prime_cnt;
+void sieve() {
+	if(prime_cnt) return;
 	for(int i = 2; i < MAX; i++) {
 		if(lp[i] == 0) {
 			lp[i] = i;
@@ -17,14 +18,22 @@ void sieve_linear() {
 	}
 }
 
-// if you only require lp, this reduces memory by half since prime list not required
-void sieve_nloglogn() {
+// Complexity: O(nloglogn)
+const int MAX = 1e6 + 2;
+int lp[MAX], prime[MAX], compute;
+void sieve() {
+	if(compute) return ;
+	compute = 1;
 	for(int i = 2; i * i < MAX; i++)
 		if(!lp[i])
 			for(int j = i * i; j < MAX; j += i)
 				if(!lp[j]) lp[j] = i;
-	for(int i = 2; i < MAX; i++) {
+	for(int i = 2; i < MAX; i++)
 		if(!lp[i]) lp[i] = i;
-		if(lp[i] == i) prime[prime_cnt++] = i;
-	}
+}
+
+int prime(int x) {
+	for(int i = 2; i * i <= x; i++)
+		if(x % i == 0) return false;
+	return x != 1;
 }
