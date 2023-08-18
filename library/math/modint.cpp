@@ -14,8 +14,8 @@ mi operator+(mi a, mi b) { return a += b; }
 mi operator-(mi a, mi b) { return a -= b; }
 mi operator*(mi a, mi b) { return mi((ll)a.v*b.v); }
 mi& operator*=(mi& a, mi b) { return a = a*b; }
-mi pow(mi a, ll p) { return p==0?1:pow(a*a,p/2)*(p&1?a:1); }
-mi inv(mi a) { assert(a.v != 0); return pow(a,MOD-2); }
+mi pwr(mi a, ll p) { return p==0?1:pwr(a*a,p/2)*(p&1?a:1); }
+mi inv(mi a) { assert(a.v != 0); return pwr(a,MOD-2); }
 mi operator/(mi a, mi b) { return a*inv(b); }
 mi operator/=(mi &a, mi b) { return a = a*inv(b); }
 bool operator==(mi a, mi b) { return a.v == b.v; }
