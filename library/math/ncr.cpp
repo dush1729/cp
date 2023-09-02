@@ -28,6 +28,7 @@ bool operator==(mi a, mi b) { return a.v == b.v; }
 const int N = 2e5 + 20;
 mi f[N], finv[N];
 void precompute() {
+	if(f[0].v) return ;
 	f[0] = 1;
 	for(int i = 1; i < N; i++) f[i] = f[i - 1] * i;
 	finv[N - 1] = 1 / f[N - 1];
