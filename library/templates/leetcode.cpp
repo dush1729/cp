@@ -6,7 +6,7 @@ using namespace std;
 
 class Solution {
 public:
-	void maxPoints(vector<vector<int>>& a) {
+	void f() {
 	}
 };
 
