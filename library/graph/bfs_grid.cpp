@@ -15,6 +15,14 @@ struct BFS {
 
 		auto inside = [&](int x, int y) {return min(x, y) >= 0 && x < n && y < m;};
 		auto ok = [&](int x, int y) {return inside(x, y) && a[x][y] == TARGET && dp[x][y] == -1;};
+		auto neighbours = [&](int x, int y, char target) {
+			vector <pair <int, int>> vec;
+			for(const auto &[dx, dy]: dirs) {
+				int nx = x + dx, ny = y + dy;
+				if(inside(nx, ny) && a[nx][ny] == target) vec.push_back({nx, ny});
+			}
+			return vec;
+		};
 		auto add = [&](int x, int y, int d) {
 			q.push({x, y});
 			components.back().push_back({x, y});
@@ -31,8 +39,7 @@ struct BFS {
 				while(!q.empty()) {
 					auto [x, y] = q.front();
 					q.pop();
-					for(const auto &[dx, dy]: dirs) {
-						int nx = x + dx, ny = y + dy;
+					for(const auto &[nx, ny]: neighbours(x, y, TARGET)) {
 						if(ok(nx, ny)) add(nx, ny, dp[x][y] + 1);
 					}
 				}
