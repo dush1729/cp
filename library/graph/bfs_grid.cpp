@@ -1,28 +1,44 @@
 // https://leetcode.com/problems/surrounded-regions/submissions/
+// https://www.facebook.com/codingcompetitions/hacker-cup/2023/round-2/problems/A2/my-submissions
 const vector <pair <int, int>> dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+const char TARGET = 'W';
 struct BFS {
-	queue <pair <int, int>> q;
-	vector <vector <int>> dp;
+	vector <vector <int>> dp, c, sz;
+	vector <vector <pair <int, int>>> components;
 
-	void add(int x, int y, int d) {
-		q.push({x, y});
-		dp[x][y] = d;
-	}
-
-	BFS(const vector <vector <char>> &a, const vector <pair <int, int>> &sources) {
+	BFS(const vector <vector <char>> &a) {
 		int n = a.size(), m = a[0].size();
+		queue <pair <int, int>> q;
 		dp.assign(n, vector (m, -1));
-		auto invalid = [&](int x, int y) {
-			return min(x, y) < 0 || x >= n || y >= m || a[x][y] == 'X' || dp[x][y] != -1;
+		c.assign(n, vector (m, 0));
+		sz.assign(n, vector (m, 0));
+
+		auto inside = [&](int x, int y) {return min(x, y) >= 0 && x < n && y < m;};
+		auto ok = [&](int x, int y) {return inside(x, y) && a[x][y] == TARGET && dp[x][y] == -1;};
+		auto add = [&](int x, int y, int d) {
+			q.push({x, y});
+			components.back().push_back({x, y});
+			dp[x][y] = d;
+			c[x][y] = components.size();
 		};
-		
-		for(auto &[x, y]: sources) add(x, y, 0);
-		while(!q.empty()) {
-			auto [x, y] = q.front();
-			q.pop();
-			for(const auto &[dx, dy]: dirs) {
-				int nx = x + dx, ny = y + dy;
-				if(!invalid(nx, ny)) add(nx, ny, dp[x][y] + 1);
+
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < m; j++) {
+				if(a[i][j] != TARGET || dp[i][j] != -1) continue;
+
+				components.push_back({});
+				add(i, j, 0);
+				while(!q.empty()) {
+					auto [x, y] = q.front();
+					q.pop();
+					for(const auto &[dx, dy]: dirs) {
+						int nx = x + dx, ny = y + dy;
+						if(ok(nx, ny)) add(nx, ny, dp[x][y] + 1);
+					}
+				}
+				for(const auto &[x, y]: components.back()) {
+					sz[x][y] = components.back().size();
+				}
 			}
 		}
 	}
