@@ -1,4 +1,6 @@
 /*
+built for 0-based, can modify for 1-based
+
 https://codeforces.com/contest/872/problem/B
 https://binarysearch.com/problems/Longest-Sublist-with-Absolute-Difference-Condition
 */

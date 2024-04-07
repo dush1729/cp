@@ -1,4 +1,6 @@
 /*
+built for 1-based, can modify for 0-based
+
 Problems
 https://www.spoj.com/problems/HORRIBLE
 https://codeforces.com/contest/145/problem/E

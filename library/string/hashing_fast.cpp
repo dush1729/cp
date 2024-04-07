@@ -1,11 +1,12 @@
 /*
-Problems
-https://leetcode.com/problems/longest-palindromic-substring
-
-1 based indexing
+0-based indexed to process string,
+1-based indexing for queries
 
 Get 31 bit prime from
 https://asecuritysite.com/encryption/random3
+
+Problems
+https://leetcode.com/problems/longest-palindromic-substring
 */
 
 const ll BASE = 128, MOD = 342876881, N = 1 << 20;

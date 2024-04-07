@@ -1,4 +1,6 @@
 /*
+only 1-based possible
+
 Problems
 https://codeforces.com/contest/1354/problem/D
 https://binarysearch.com/problems/Bubble-Swap

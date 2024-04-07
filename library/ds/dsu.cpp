@@ -1,8 +1,11 @@
 /*
+both 0-based 1-based possible
+
 Problems
 https://binarysearch.com/problems/Number-of-Islands-Online-Version
 https://codeforces.com/contest/1454/problem/E
 */
+
 
 struct DSU {
 	int count, maxsize;
