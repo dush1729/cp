@@ -1,7 +1,7 @@
 #include "bits/stdc++.h"
 using namespace std;
 
-const int BASE = 26, START = 'a', MOD = 1e9 + 7;
+const int BASE = 75, START = 'a', MOD = 327458127;
 
 string a, b;
 int n, m, ha, hb, p = 1;
@@ -30,7 +30,7 @@ int main() {
 		hb = add(mul(hb, BASE), b[i] - START);
 		if(i + 1 != b.size()) p = mul(p, BASE);
 	}
-
+ 
 	for(int i = 0; i < m; i++) {
 		ha = add(mul(ha, BASE), a[i] - START);
 	}
